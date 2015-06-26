@@ -1,0 +1,128 @@
+* {
+	margin:0;
+	padding: 0;
+
+	box-sizing: border-box;
+
+}
+
+
+.margin-small {
+
+	margin: 30px 0;
+}
+
+.section {
+
+	position: relative;
+	min-height: 300px;
+	width: 100%;
+	margin: 50px 0;
+}
+
+
+/**
+ *
+ * css for making the modal fullscreen
+ * 
+ */
+
+/* this class makes the modal width 100%. This class is applied with modal-dialog (if you are using it)
+   otherwise apply this class with modal-content div */
+
+.full-screen {
+
+	margin: 0px;
+	height: 100%;
+	width: 100%;
+	padding: 0px;
+}
+
+/* this class is used to make the height of the modal 100%.
+// this class is applied to modal-content div
+// apply this class only if you are using modal-dialog div, otherwise no need to apply this */
+
+
+.full-height {
+
+	height: 100%;
+
+}
+
+/* // this class will remove the corners
+//this class is applied to modal-content div */
+
+.no-corner {
+
+	border-radius: 0;
+}
+
+
+/**
+ *
+ * css for stylish modal
+ */
+
+/*// this class is used to change the background of modal*/
+
+.monokai {
+
+	background-color: #292727;
+}
+
+
+#fullscreen-s .side-content {
+
+	float: right;
+	width: 30%;
+	line-height: 1.5em;
+	right: 0px;
+	padding: 230px 40px 100px;
+	height: 100%;
+	color: #fff;
+}
+
+#fullscreen-s .close {
+    display: block;
+    position: fixed;
+    right: 50px;
+    top: 30px;
+    height: 40px;
+    width: 40px;
+    background: transparent url("../img/close.png") no-repeat scroll center center;
+    opacity: 0.3;
+}
+
+#fullscreen-s .close:hover {
+    opacity: 0.8;
+}
+
+#fullscreen-s .main-content {
+
+	padding: 40px;
+	height: 100%;
+	overflow-x: auto;
+	min-height: 100vh;
+	box-shadow: 0px 0px 7px 0px rgba(2,3,8,0.8);
+	text-align: center;
+	left: 0px;
+	background: transparent url("../img/texture.png");
+
+}
+
+#fullscreen-s .main-content .work-img {
+
+	display: block;
+	margin: 40px auto;
+	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+}
+
+
+/**
+ *
+ * This is to remove the padding given by jquery (dont need it)
+ * 
+ */
+#fullscreen-s[style] {
+padding-left: 0px !important;
+}
