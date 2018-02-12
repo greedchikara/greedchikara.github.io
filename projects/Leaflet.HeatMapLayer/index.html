@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Leaflet.heat demo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.js"></script>
+    <style>
+        #map {
+            width: 800px;
+            height: 600px;
+        }
+
+        body {
+            font: 16px/1.4 "Helvetica Neue", Arial, sans-serif;
+        }
+
+        a {
+            color: #0077ff;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Leaflet Map with HeatMap functionality</h1>
+    <div id="map"></div>
+
+    <script src="simpleheat.js"></script>
+    <script src="heatmap.js"></script>
+    <script>
+        var map = L.map('map', {
+            center: [76.9, 28.10],
+            zoom: 6
+        });
+        var tiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+        }).addTo(map);
+
+        var addressPoints = [];
+        for (let i = 0; i < 100; i++) {
+            addressPoints.push({ lat: getRandomFloat(76.5, 77.2), lon: getRandomFloat(28.10, 28.60), v: getRandomFloat(0, 1) });
+        }
+
+        var heat = L.heatMapLayer(addressPoints).addTo(map);
+
+        function getRandomFloat(min, max) {
+            return Math.random() * (max - min + 1) + min;
+        }
+    </script>
+</body>
+
+</html>
