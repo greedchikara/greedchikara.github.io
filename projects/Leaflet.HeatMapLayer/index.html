@@ -41,7 +41,7 @@
             addressPoints.push({ lat: getRandomFloat(76.5, 77.2), lon: getRandomFloat(28.10, 28.60), v: getRandomFloat(0, 1) });
         }
 
-        var heat = L.heatMapLayer(addressPoints).addTo(map);
+        var heat = L.heatMapLayer({ latlngs: addressPoints }).addTo(map);
 
         function getRandomFloat(min, max) {
             return Math.random() * (max - min + 1) + min;

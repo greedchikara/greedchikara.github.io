@@ -1,23 +1,20 @@
 
 L.HeatMapLayer = L.Layer.extend({
 
-    initialize: function (latlngs, options) {
-        this._latlngs = latlngs;
+    initialize: function (options) {
+        this._latlngs = options.latlngs;
+        this._radius = (options.radius == undefined) ? 8 : options.radius;
+        this._blurSize = (options.blur_size == undefined) ? 12 : options.radius;
     },
 
     onAdd: function (map) {
         this._map = map;
-        this._initHeatCanvas();
-        map.on("moveend", this._redraw, this);
-        this._redraw();
+        this.createHeatCanvas();
+        map.on("moveend", this.addLocationsToCanvas, this);
+        this.addLocationsToCanvas();
     },
 
-    onRemove: function (map) {
-        map.getPanes().overlayPane.removeChild(this._div);
-        map.off("moveend", this._redraw, this);
-    },
-
-    _initHeatCanvas: function () {
+    createHeatCanvas: function () {
 
         var container = L.DomUtil.create('div', 'leaflet-heatmap-container');
         container.style.position = 'absolute';
@@ -32,20 +29,21 @@ L.HeatMapLayer = L.Layer.extend({
         canv.style.opacity = this._opacity;
         container.appendChild(canv);
 
-        this._div = container;
+        this._canvasContainer = container;
         this._heat = simpleheat(canv);
-        this._heat.radius(8, 12);
-        this._map.getPanes().overlayPane.appendChild(this._div);
+        this._heat.radius(this._radius, this._blurSize);
+        this._map.getPanes().overlayPane.appendChild(this._canvasContainer);
     },
 
-    _resetCanvasPosition: function () {
+    resetCanvasContainerPosition: function () {
         var bounds = this._map.getBounds();
         var topLeft = this._map.latLngToLayerPoint(bounds.getNorthWest());
-        L.DomUtil.setPosition(this._div, topLeft);
+        L.DomUtil.setPosition(this._canvasContainer, topLeft);
     },
 
-    _redraw: function () {
-        this._resetCanvasPosition();
+    addLocationsToCanvas: function () {
+
+        this.resetCanvasContainerPosition();
         var data = [];
         if (this._latlngs.length > 0) {
             for (var i = 0, l = this._latlngs.length; i < l; i++) {
@@ -61,12 +59,7 @@ L.HeatMapLayer = L.Layer.extend({
         }
         this._heat.data(data).draw();
         return this;
-    },
-
-    redraw: function () {
-        this._redraw();
     }
-
 });
 
 L.heatMapLayer = function (latlngs, options) {
